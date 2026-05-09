@@ -46,5 +46,3 @@ jobs:
         context: ./
         file: ./Dockerfile
         tags: ghcr.io/${{ env.USER_NAME_LC }}/${{ env.IMAGE_NAME }}:latest
-        cache-from: type=gha
-        cache-to: type=gha,mode=max

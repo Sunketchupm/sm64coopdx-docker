@@ -1,4 +1,4 @@
-FROM ubuntu:jammy AS build
+FROM debian:bookworm-slim AS build
 
 RUN apt-get update && \
     apt-get install -y \
@@ -19,19 +19,12 @@ ENV PATH="/sm64/tools:${PATH}"
 RUN git clone https://github.com/coop-deluxe/sm64coopdx.git .
 RUN make -j16 TARGET_BITS=64 DISCORD_SDK=0 COOPNET=1 HEADLESS=0 RENDER_API=DUMMY WINDOW_API=DUMMY WINDOWS_BUILD=0 OSX_BUILD=0 TEXTURE_FIX=0 ENHANCE_LEVEL_TEXTURES=0
 
-FROM ubuntu:jammy AS release
+FROM debian:bookworm-slim AS release
 
 RUN apt-get update && \
     apt-get install -y \
-        binutils-mips-linux-gnu \
-        bsdmainutils \
-        build-essential \
-        libcapstone-dev \
-        pkgconf \
-        python3 \
-        libz-dev \
-        libcurl4-openssl-dev \
-        libsdl2-2.0
+        libsdl2-2.0-0 \
+        libcurl4
 
 WORKDIR /sm64
 COPY --from=build /sm64/build/us_pc/sm64coopdx /sm64/sm64coopdx

@@ -1,0 +1,22 @@
+services:
+  server:
+    build: .
+    image: ghcr.io/sunketchupm/sm64coopdx-server:latest
+    tty: true
+    volumes:
+      - ./baserom.us.z64:/sm64/baserom.us.z64:ro
+      - ./config:/sm64/config
+    command: [
+      "./sm64coopdx",
+      "--savepath", "!/config",
+      "--headless",
+      "--skip-update-check",
+      # Argument replaceable. Use the name you want the server to have on the server list.
+      "--playername", "(SERVER NAME)",
+      # Argument replaceable. Keep empty to make public.
+      "--coopnet", "PASSWORD",
+      # Disables all enabled mods.
+      # "--disable-mods",
+      # Enables 1 mod. MODNAME is the name of the folder/file. Chain multiple to enable multiple mods.
+      # "--enable-mod", "MODNAME"
+    ]
