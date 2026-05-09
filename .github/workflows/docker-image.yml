@@ -1,0 +1,50 @@
+name: Docker Image CI
+
+env:
+  IMAGE_NAME: sm64coopdx-server
+  USER_NAME: ${{ github.repository_owner }}
+
+permissions:
+  contents: read
+  packages: write
+
+on:
+  push:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: set lower case owner name
+      run: echo "USER_NAME_LC=${USER_NAME,,}" >>${GITHUB_ENV}
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build
+      uses: docker/build-push-action@v7
+      with:
+        push: true
+        context: ./
+        file: ./Dockerfile
+        tags: ghcr.io/${{ env.USER_NAME_LC }}/${{ env.IMAGE_NAME }}:latest
+        cache-from: type=gha
+        cache-to: type=gha,mode=max
