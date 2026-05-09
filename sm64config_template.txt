@@ -1,5 +1,4 @@
 coop_player_name SERVER
-coopnet_password PASSWORD
 
 enable-mod: MODNAME.lua
 enable-mod: MODNAME2.lua
@@ -130,6 +129,7 @@ force_4by3 false
 dynos_local_player_model_only false
 coopnet_ip net.coop64.us
 coopnet_port 34197
+coopnet_password 
 coopnet_dest 0
 djui_theme 1
 djui_theme_center true

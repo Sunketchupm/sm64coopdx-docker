@@ -19,11 +19,9 @@ Once you make your changes, you can copy `sm64config_template.txt` into `config`
 ## Structure
 ### Server Host
 - `coop_player_name` [name]
-- `coopnet_password` [password]<br>
-Leave blank to make this server a public lobby
 - `enable-mod:` [mod name]<br>
 The file/folder name of the mod to enable (include `.lua` if it's a single file mod, otherwise don't).<br>
-Multiple mods can be enabled by adding more `enable-mod:` lines.
+Multiple mods can be enabled by adding more `enable-mod:` lines. Mods can be disabled by removing their respective `enable-mod:` line.
 ### Server Settings
 - `coop_player_interaction` [0|1|2]<br>
 `0` is Non-solid, `1` is Solid, `2` is Friendly Fire.
@@ -47,3 +45,5 @@ Minimum amount is `2`, maximum amount is `16` (for now).
 You can get a player's coopnet id by using `/players` in the chatbox. Yes you need to type in their entire ID manually. To have multiple moderators or banned players, add a new `moderator:` or `ban:` line. These lines can be removed to remove a player's `moderator:` or `ban:` status.
 - `moderator:` [coopnet id]
 - `ban:` [coopnet id]
+## Coopnet
+Annoyingly enough, for a headless server like this, changing the `coopnet_password` field will not set the password of the coopnet server. This instead needs to be done in `compose.yaml`. There is a comment in there to tell you want to change.

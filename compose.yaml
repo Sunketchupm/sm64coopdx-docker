@@ -14,7 +14,9 @@ services:
       "./sm64coopdx",
       "--savepath", "!/config",
       "--headless",
-      "--skip-update-check"
+      "--skip-update-check",
+      # Leave blank to make a public lobby, or set a password to make a private lobby
+      "--coopnet", ""
     ]
     user: "1000:1000"
     cap_drop:
